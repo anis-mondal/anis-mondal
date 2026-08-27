@@ -22,7 +22,7 @@ I am exploring the world of programming, trying to build small projects, and enj
 </p>
 
 <p align="left">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent&sideNums=bb9af7" alt="" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent" alt="" />
 </p>
 
 <h3>🐍 Contribution Snake</h3>
