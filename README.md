@@ -1,4 +1,4 @@
-<h3>Hi, I'm Anis!&nbsp;<img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="35" style="vertical-align: middle;"></h3>
+<h3>Hi, I'm Anis!&nbsp;<img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="45" style="vertical-align: middle;"></h2>
 
 <h3>🔗 About Me</h3>
 
