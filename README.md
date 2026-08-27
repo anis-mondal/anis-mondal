@@ -14,7 +14,7 @@ I am exploring the world of programming, trying to build small projects, and enj
 <h3>📊 GitHub Stats</h3>
 
 <p align="left">
-  <img src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/main/profile-summary-cards-output/tokyonight/3-stats.svg" alt="" />
+  <img src="https://github-readme-stats.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true" alt="" />
 </p>
 
 <p align="left">
