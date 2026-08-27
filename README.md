@@ -22,15 +22,15 @@ I am exploring the world of programming, trying to build small projects, and enj
 </p>
 
 <p align="left">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent" alt="" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent&sideNums=bb9af7" alt="" />
 </p>
 
 <h3>🐍 Contribution Snake</h3>
 
 <p align="left">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg">
-    <img alt="" src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake-dark.svg?v=1">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?v=1">
+    <img alt="" src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?v=1">
   </picture>
 </p>
