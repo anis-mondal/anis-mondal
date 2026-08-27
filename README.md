@@ -1,6 +1,6 @@
 <h3>Hi, I'm Anis!&nbsp;<img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="20" style="vertical-align: middle;"></h3>
 
-<img align="right" src="https://i.gifer.com/ZUiY.gif" width="130">
+<img align="right" src="https://i.gifer.com/ZUiY.gif" width="100">
 
 
 
