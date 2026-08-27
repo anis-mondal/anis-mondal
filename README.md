@@ -25,6 +25,10 @@ I am exploring the world of programming, trying to build small projects, and enj
   <img src="https://streak-stats.demolab.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent&sideNums=bb9af7" alt="" />
 </p>
 
+<p align="left">
+  <img alt="chart" src="https://shieldcn.dev/chart/github/commits/anis-mondal.svg?bg=transparent&border=false&logo=false&width=1030&title=Total+Activity&icon=github" />
+</p>
+
 <h3>🐍 Contribution Snake</h3>
 
 <p align="left">
