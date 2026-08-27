@@ -51,5 +51,5 @@ I am exploring the world of programming, trying to build small projects, and enj
   </a>
 </p>
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=bb9af7,38b6ff&height=100&section=footer" width="100%" alt="waving footer" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer&width=100"/>
 </p>
