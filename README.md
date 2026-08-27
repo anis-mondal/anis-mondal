@@ -1,6 +1,6 @@
-<h1>Hi there, I'm Anis!&nbsp;<img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="35" style="vertical-align: middle;"></h1>
+<h1>Hi, I'm Anis!&nbsp;<img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="35" style="vertical-align: middle;"></h1>
 
-## 🔗 About Me
+<h3>🔗 About Me</h3>
 
 <img align="right" src="https://i.gifer.com/ZUiY.gif" width="140">
 
@@ -10,17 +10,17 @@ I am exploring the world of programming, trying to build small projects, and enj
 
 <br clear="both">
 
-## 📊 GitHub Stats
+<h3>📊 GitHub Stats</h3>
 
 <p align="left">
-  <img src="https://github-readme-stats.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&bg_color=transparent&include_all_commits=true&count_private=true" alt="Anis's GitHub Stats" />
+  <img src="https://github-readme-stats.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&cache_seconds=1800" alt="GitHub Stats" />
 </p>
 
 <p align="left">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=anis-mondal&theme=tokyonight&hide_border=true&background=transparent" alt="GitHub Streak" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent" alt="GitHub Streak" />
 </p>
 
-## 🐍 Contribution Snake
+<h3>🐍 Contribution Snake</h3>
 
 <p align="left">
   <picture>
