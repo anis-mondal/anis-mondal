@@ -1,9 +1,9 @@
-<h1>
+<h3>
   <img align="right" src="https://i.gifer.com/ZUiY.gif" width="140">
-  Hi, I'm Anis!&nbsp;<img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="35" style="vertical-align: middle;">
-</h1>
+  Hi, I'm Anis!&nbsp;<img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="20" style="vertical-align: middle;">
+</h3>
 
-<h3>🔗 About Me</h3>
+<h4>🔗 About Me</h4>
 
 I'm currently a student and I've recently started learning coding as a hobby.
 
@@ -11,7 +11,7 @@ I am exploring the world of programming, trying to build small projects, and enj
 
 <br clear="both">
 
-<h3>📊 GitHub Stats</h3>
+<h4>📊 GitHub Stats</h4>
 
 <p align="left">
   <img src="https://my-github-stats-brown.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&bg_color=00000000" alt="" />
@@ -25,7 +25,7 @@ I am exploring the world of programming, trying to build small projects, and enj
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent" alt="" />
 </p>
 
-<h3>🐍 Contribution Snake</h3>
+<h4>🐍 Contribution Snake</h4>
 
 <p align="left">
   <picture>
