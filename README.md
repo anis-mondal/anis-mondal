@@ -1,4 +1,4 @@
-<h1>Hi, I'm Anis!&nbsp;<img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="35" style="vertical-align: middle;"></h1>
+<h3>Hi, I'm Anis!&nbsp;<img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="35" style="vertical-align: middle;"></h3>
 
 <h3>🔗 About Me</h3>
 
@@ -13,7 +13,7 @@ I am exploring the world of programming, trying to build small projects, and enj
 <h3>📊 GitHub Stats</h3>
 
 <p align="left">
-  <img src="https://github-readme-stats.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&cache_seconds=1800" alt="GitHub Stats" />
+  <img src="https://github-readme-stats.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&disable_animations=false" alt="GitHub Stats" />
 </p>
 
 <p align="left">
