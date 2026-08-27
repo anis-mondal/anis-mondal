@@ -43,6 +43,10 @@ I am exploring the world of programming, trying to build small projects, and enj
 
 <p align="center">
   <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.demolab.com?font=system-ui&pause=1000&color=F7F7F7&width=450&center=true&lines=Thanks+for+visiting+my+profile+%E2%9D%A4%EF%B8%8F" alt="Typing SVG" />
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com?font=system-ui&pause=1000&color=F7F7F7&width=450&center=true&lines=Thanks+for+visiting+my+profile+%E2%9D%A4%EF%B8%8F">
+      <source media="(prefers-color-scheme: light)" srcset="https://readme-typing-svg.demolab.com?font=system-ui&pause=1000&color=1F2328&width=450&center=true&lines=Thanks+for+visiting+my+profile+%E2%9D%A4%EF%B8%8F">
+      <img alt="Typing SVG" src="https://readme-typing-svg.demolab.com?font=system-ui&pause=1000&color=1F2328&width=450&center=true&lines=Thanks+for+visiting+my+profile+%E2%9D%A4%EF%B8%8F" />
+    </picture>
   </a>
 </p>
