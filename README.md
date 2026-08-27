@@ -14,7 +14,11 @@ I am exploring the world of programming, trying to build small projects, and enj
 <h3>📊 GitHub Stats</h3>
 
 <p align="left">
-  <img src="https://github-readme-stats.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true" alt="" />
+  <img src="https://my-github-stats-brown.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true" alt="" />
+</p>
+
+<p align="left">
+  <img src="https://my-github-stats-brown.vercel.app/api/top-langs/?username=anis-mondal&theme=tokyonight&hide_border=true&layout=compact" alt="" />
 </p>
 
 <p align="left">
