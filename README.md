@@ -50,3 +50,6 @@ I am exploring the world of programming, trying to build small projects, and enj
     </picture>
   </a>
 </p>
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=60&section=footer&width=120"/>
+</p>
