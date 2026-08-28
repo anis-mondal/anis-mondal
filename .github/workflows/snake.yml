@@ -2,7 +2,8 @@ name: Generate Snake
 
 on:
   schedule:
-    - cron: "0 */2 * * *"
+   
+    - cron: "0 */4 * * *"
   push:
     branches:
       - main
@@ -15,18 +16,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
       
-      - uses: Platane/snk@v3
+      - name: Generate Snake
+        uses: Platane/snk@v3
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
-            dist/github-contribution-grid-snake.svg?color_snake=#bb9af7&color_dots=#ebedf0,#9be9a8,#40c463,#30a14e,#216e39
-            dist/github-contribution-grid-snake-dark.svg?color_snake=#bb9af7&color_dots=#1a1b26,#22322c,#33523f,#4f855e,#9ece6a
+            dist/github-contribution-grid-snake.svg?color_snake=#bb9af7&color_dots=#ebedf0,#c2d6f9,#9abff4,#7aa2f7,#3d59a1
+            dist/github-contribution-grid-snake-dark.svg?color_snake=#bb9af7&color_dots=#1a1b26,#273a5e,#395587,#5a7bb0,#7aa2f7
       
-      - uses: crazy-max/ghaction-github-pages@v3.1.0
+      - name: Push to Output Branch
+        uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
           target_branch: output
           build_dir: dist
+          
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
