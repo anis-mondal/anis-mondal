@@ -4,7 +4,7 @@
 </h1>
 
 
-<h3><img src="./assets/me.gif" width="40" style="vertical-align: middle;"> About Me</h3>
+<h3><img src="./assets/me.gif" width="30" style="vertical-align: middle;"> About Me</h3>
 
 I'm currently a student and I've recently started learning coding as a hobby.
 
