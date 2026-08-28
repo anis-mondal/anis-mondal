@@ -1,7 +1,7 @@
-<h2>
+<h1>
   <img align="right" src="./assets/cat1.gif" width="145">
-  Hi, I'm Anis Mondal!&nbsp;<img src="./assets/hi.gif" width="25" style="vertical-align: middle;">
-</h2>
+  Hi, I'm Anis Mondal!&nbsp;<img src="./assets/hi.gif" width="35" style="vertical-align: middle;">
+</h1>
 
 
 <h3><img src="./assets/me.gif" width="30" style="vertical-align: middle;"> About Me</h3>
