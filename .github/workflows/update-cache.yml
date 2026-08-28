@@ -2,9 +2,12 @@ name: Update README Cache Buster
 
 on:
   schedule:
-    # রাত ১২টা থেকে শুরু করে প্রতি ২ ঘণ্টা পর পর রান করবে (দিনে মোট ১২ বার)
+    # প্রতি ৬ ঘণ্টা পর পর রান করবে
     - cron: '0 */6 * * *'
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   update-readme:
@@ -13,18 +16,58 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Update Version Number
+      - name: Update Version Numbers Based on API Status
         run: |
           RAND_NUM=$RANDOM
-          # README.md ফাইলে থাকা সব &v=... কে নতুন র‍্যান্ডম সংখ্যা দিয়ে পরিবর্তন করবে
-          sed -i -E "s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
+          
+          # ১. Top Langs Card চেক
+          if [ $(curl -s -o /dev/null -w "%{http_code}" "https://my-github-stats-brown.vercel.app/api/top-langs/?username=anis-mondal") -eq 200 ]; then
+            sed -i -E "/api\/top-langs/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
+            echo "Top Langs updated."
+          fi
+
+          # ২. General Stats Card চেক
+          if [ $(curl -s -o /dev/null -w "%{http_code}" "https://my-github-stats-brown.vercel.app/api?username=anis-mondal&show_icons=true") -eq 200 ]; then
+            sed -i -E "/api\?username=anis-mondal&show_icons/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
+            echo "General Stats updated."
+          fi
+
+          # ৩. Streak Stats Card চেক
+          if [ $(curl -s -o /dev/null -w "%{http_code}" "https://streak-stats.demolab.com/?user=anis-mondal") -eq 200 ]; then
+            sed -i -E "/streak-stats\.demolab\.com/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
+            echo "Streak Stats updated."
+          fi
+
+          # ৪. Profile Details Card চেক
+          if [ $(curl -s -o /dev/null -w "%{http_code}" "https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=anis-mondal") -eq 200 ]; then
+            sed -i -E "/github-profile-summary-cards/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
+            echo "Profile Details updated."
+          fi
+
+          # ৫. Contribution Snake চেক (GitHub Raw Server)
+          if [ $(curl -s -o /dev/null -w "%{http_code}" "https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg") -eq 200 ]; then
+            sed -i -E "/github-contribution-grid-snake/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
+            echo "Snake updated."
+          fi
+
+          # ৬. Typing SVG চেক
+          if [ $(curl -s -o /dev/null -w "%{http_code}" "https://readme-typing-svg.demolab.com?font=system-ui") -eq 200 ]; then
+            sed -i -E "/readme-typing-svg/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
+            echo "Typing SVG updated."
+          fi
+
+          # ৭. Capsule Render (Footer Wave) চেক
+          if [ $(curl -s -o /dev/null -w "%{http_code}" "https://capsule-render.vercel.app/api?type=waving") -eq 200 ]; then
+            sed -i -E "/capsule-render/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
+            echo "Capsule Render updated."
+          fi
 
       - name: Commit and Push Changes
         run: |
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
           
-          # পরিবর্তন হলে পুশ করবে, না হলে এরর এড়িয়ে যাবে
-          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update cache buster in README every 2 hours"
+          # যদি কোনো পরিবর্তন হয়ে থাকে তবেই কমিট করবে
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update valid image cache busters"
           git push
