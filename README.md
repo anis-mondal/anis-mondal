@@ -11,7 +11,7 @@ I am exploring the world of programming, trying to build small projects, and enj
 
 <br clear="both">
 
-<h3><img src="./1.gif" width="35" style="vertical-align: middle;"> GitHub Stats</h3>
+<h3><img src="./fire.gif" width="30" style="vertical-align: middle;"> GitHub Stats</h3>
 
 <p align="left">
   <img src="https://my-github-stats-brown.vercel.app/api/top-langs/?username=anis-mondal&theme=tokyonight&hide_border=true&layout=compact&bg_color=00000000&v=29628" alt="" />
