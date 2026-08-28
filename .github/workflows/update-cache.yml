@@ -1,0 +1,30 @@
+name: Update README Cache Buster
+
+on:
+  schedule:
+    # প্রতিদিন রাত ১২টায় রান করবে
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Update Version Number
+        run: |
+          RAND_NUM=$RANDOM
+          # README.md ফাইলে থাকা সব &v=... কে নতুন র‍্যান্ডম সংখ্যা দিয়ে পরিবর্তন করবে
+          sed -i -E "s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          
+          # পরিবর্তন হলে পুশ করবে, না হলে এরর এড়িয়ে যাবে
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update cache buster in README"
+          git push
