@@ -1,5 +1,5 @@
 <h1>
-  <img align="right" src="./assets/2.gif" width="140">
+  <img align="right" src="./assets/hello.gif" width="140">
   Hi, I'm Anis!&nbsp;<img src="./assets/hi.gif" width="35" style="vertical-align: middle;">
 </h1>
 
