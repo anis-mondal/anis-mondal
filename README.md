@@ -22,7 +22,7 @@ I am exploring the world of programming, trying to build small projects, and enj
 </p>
 
 <p align="left">
-  <img src="https://streak-stats.demolab.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent&sideNums=bb9af7&v=29628" alt="" />
+  <img src="https://streak-stats.demolab.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent&sideNums=bb9af7&v=298" alt="" />
 </p>
 
 
