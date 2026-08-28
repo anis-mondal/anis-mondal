@@ -22,8 +22,9 @@ I am exploring the world of programming, trying to build small projects, and enj
 </p>
 
 <p align="left">
-  <img src="https://streak-stats.demolab.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent&sideNums=bb9af7" alt="" />
+  <img src="https://streak-stats.demolab.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent&sideNums=bb9af7&v=1" alt="" />
 </p>
+
 
 <p align="left">
   <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=anis-mondal&theme=tokyonight&bg_color=00000000&v=4" alt="Profile Details" />
