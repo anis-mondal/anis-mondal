@@ -14,20 +14,20 @@ I am exploring the world of programming, trying to build small projects, and enj
 <h3>📊 GitHub Stats</h3>
 
 <p align="left">
-  <img src="https://my-github-stats-brown.vercel.app/api/top-langs/?username=anis-mondal&theme=tokyonight&hide_border=true&layout=compact&bg_color=00000000&v=4" alt="" />
+  <img src="https://my-github-stats-brown.vercel.app/api/top-langs/?username=anis-mondal&theme=tokyonight&hide_border=true&layout=compact&bg_color=00000000&v=18013" alt="" />
 </p>
 
 <p align="left">
-  <img src="https://my-github-stats-brown.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&bg_color=00000000&v=4" alt="" />
+  <img src="https://my-github-stats-brown.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&bg_color=00000000&v=18013" alt="" />
 </p>
 
 <p align="left">
-  <img src="https://streak-stats.demolab.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent&sideNums=bb9af7&v=1" alt="" />
+  <img src="https://streak-stats.demolab.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent&sideNums=bb9af7&v=18013" alt="" />
 </p>
 
 
 <p align="left">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=anis-mondal&theme=tokyonight&bg_color=00000000&v=4" alt="Profile Details" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=anis-mondal&theme=tokyonight&bg_color=00000000&v=18013" alt="Profile Details" />
 </p>
 
 
@@ -35,9 +35,9 @@ I am exploring the world of programming, trying to build small projects, and enj
 
 <p align="left">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake-dark.svg?&v=3">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?&v=3">
-    <img alt="" src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?&v=3">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake-dark.svg?&v=18013">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?&v=18013">
+    <img alt="" src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?&v=18013">
   </picture>
 </p>
 
@@ -45,10 +45,10 @@ I am exploring the world of programming, trying to build small projects, and enj
 <div align="center">
   <a href="https://git.io/typing-svg">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com?font=system-ui&pause=1000&color=F7F7F7&width=450&height=35&center=true&lines=Thanks+for+visiting+my+profile+%E2%9D%A4%EF%B8%8F&v=1">
-      <source media="(prefers-color-scheme: light)" srcset="https://readme-typing-svg.demolab.com?font=system-ui&pause=1000&color=1F2328&width=450&height=35&center=true&lines=Thanks+for+visiting+my+profile+%E2%9D%A4%EF%B8%8F&v=1">
-      <img alt="Typing SVG" src="https://readme-typing-svg.demolab.com?font=system-ui&pause=1000&color=1F2328&width=450&height=35&center=true&lines=Thanks+for+visiting+my+profile+%E2%9D%A4%EF%B8%8F&v=1">
+      <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com?font=system-ui&pause=1000&color=F7F7F7&width=450&height=35&center=true&lines=Thanks+for+visiting+my+profile+%E2%9D%A4%EF%B8%8F&v=18013">
+      <source media="(prefers-color-scheme: light)" srcset="https://readme-typing-svg.demolab.com?font=system-ui&pause=1000&color=1F2328&width=450&height=35&center=true&lines=Thanks+for+visiting+my+profile+%E2%9D%A4%EF%B8%8F&v=18013">
+      <img alt="Typing SVG" src="https://readme-typing-svg.demolab.com?font=system-ui&pause=1000&color=1F2328&width=450&height=35&center=true&lines=Thanks+for+visiting+my+profile+%E2%9D%A4%EF%B8%8F&v=18013">
     </picture>
   </a>
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=80&section=footer&width=100&v=1" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=80&section=footer&width=100&v=18013" />
 </div>
