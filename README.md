@@ -9,7 +9,6 @@ I'm currently a student and I've recently started learning coding as a hobby.
 
 I am exploring the world of programming, trying to build small projects, and enjoying the process of learning how things work behind the scenes. Every day is a new opportunity to write better code and learn something new!
 
-<br clear="both">
 
 <h3><img src="./fire.gif" width="27" style="vertical-align: middle;"> GitHub Stats</h3>
 
