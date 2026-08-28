@@ -41,7 +41,6 @@ I am exploring the world of programming, trying to build small projects, and enj
   </picture>
 </p>
 
-
 <div align="center">
   <a href="https://git.io/typing-svg">
     <picture>
