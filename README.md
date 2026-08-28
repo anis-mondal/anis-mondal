@@ -1,5 +1,5 @@
 <h1>
-  <img align="right" src="https://i.gifer.com/ZUiY.gif" width="140">
+  <img align="right" src="./1.gif" width="140">
   Hi, I'm Anis!&nbsp;<img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="35" style="vertical-align: middle;">
 </h1>
 
