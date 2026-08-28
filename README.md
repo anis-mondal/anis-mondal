@@ -4,14 +4,14 @@
 </h1>
 
 
-<h3><img src="./me.gif" width="40" style="vertical-align: middle;"> About Me</h3>
+<h3><img src="./assets/me.gif" width="40" style="vertical-align: middle;"> About Me</h3>
 
 I'm currently a student and I've recently started learning coding as a hobby.
 
 I am exploring the world of programming, trying to build small projects, and enjoying the process of learning how things work behind the scenes. Every day is a new opportunity to write better code and learn something new!
 
 
-<h3><img src="./fire.gif" width="27" style="vertical-align: middle;"> GitHub Stats</h3>
+<h3><img src="./assets/fire.gif" width="27" style="vertical-align: middle;"> GitHub Stats</h3>
 
 <p align="left">
   <img src="https://my-github-stats-brown.vercel.app/api/top-langs/?username=anis-mondal&theme=tokyonight&hide_border=true&layout=compact&bg_color=00000000&v=29628" alt="" />
@@ -31,7 +31,7 @@ I am exploring the world of programming, trying to build small projects, and enj
 </p>
 
 
-<h3><img src="./snake.gif" width="35" style="vertical-align: middle;"> Contribution Snake</h3>
+<h3><img src="./assets/snake.gif" width="35" style="vertical-align: middle;"> Contribution Snake</h3>
 
 <p align="left">
   <picture>
