@@ -41,8 +41,8 @@ I am exploring the world of programming, trying to build small projects, and enj
 </p>
 
 <div>
-  <img align="left" src="./3.gif" width="50">
-  <img align="right" src="./3.gif" width="50">
+  <img align="left" src="./3.gif" width="40">
+  <img align="right" src="./3.gif" width="40">
  
   <div align="center">
     <a href="https://git.io/typing-svg">
