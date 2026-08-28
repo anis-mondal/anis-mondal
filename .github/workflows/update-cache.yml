@@ -3,7 +3,7 @@ name: Update README Cache Buster
 on:
   schedule:
     # প্রতি ৬ ঘণ্টা পর পর রান করবে
-    - cron: '0 */6 * * *'
+    - cron: '0 */1 * * *'
   workflow_dispatch:
 
 permissions:
