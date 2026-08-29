@@ -47,5 +47,6 @@ I am exploring the world of programming, trying to build small projects, and enj
       <img alt="Typing SVG" src="https://readme-typing-svg.demolab.com?font=system-ui&pause=1000&color=1F2328&width=450&height=35&center=true&lines=Thanks+for+visiting+my+profile+%E2%9D%A4%EF%B8%8F&v=29628">
     </picture>
   </a>
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=80&section=footer&width=100&v=1042" />
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:9d7cd8,20:bb9af7,45:7aa2f7,75:38b6ff,100:7dcfff&height=80&section=footer&width=100&v=1042" />
 </div>
