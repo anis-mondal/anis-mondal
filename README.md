@@ -9,7 +9,7 @@ I'm currently a student and I've recently started learning coding as a hobby.
 
 I am exploring the world of programming, trying to build small projects, and enjoying the process of learning how things work behind the scenes. Every day is a new opportunity to write better code and learn something new!
 
-<h3><img src="./assets/code.gif" width="45" style="vertical-align: middle;"> Tech Stack & Languages</h3>
+<h3><img src="./assets/code.gif" width="32" style="vertical-align: middle;"> Tech Stack & Languages</h3>
 
 <p align="left">
   <img src="https://my-github-stats-brown.vercel.app/api/top-langs/?username=anis-mondal&theme=tokyonight&hide_border=true&layout=compact&bg_color=00000000&v=6823" alt="Most Used Languages" />
