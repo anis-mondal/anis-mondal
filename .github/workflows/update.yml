@@ -1,4 +1,4 @@
-name: Merged Profile Actions
+name: Automated Profile Updater
 
 on:
   schedule:
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # Node warning ফিক্স করার জন্য v4 করা হলো
       
       - name: Generate Snake
         uses: Platane/snk@v3
@@ -52,16 +52,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # ৩. GitHub Stats Cards Generate করার কাজ (আপনার নতুন অ্যাকশন)
+  # ৩. GitHub Stats Cards Generate করার কাজ
   generate-stats:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         
       - name: Generate GitHub Stats Cards
         uses: vn7n24fzkq/github-profile-summary-cards@release
-        continue-on-error: true # <--- এই ম্যাজিক লাইনের কারণে ফেইল হলেও স্কিপ করে যাবে
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -69,11 +69,11 @@ jobs:
 
   # ৪. README আপডেট এবং সার্ভারে টোকা মারা (Cache Warm-up)
   update-readme-and-warmup:
-    needs: [ping-server, generate-snake, generate-stats] # আগের ৩টি কাজ শেষ হলে তবেই এটি রান করবে
+    needs: [ping-server, generate-snake, generate-stats]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Update Version Numbers Based on API Status
         run: |
@@ -118,9 +118,12 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md
           
-          # যদি কোনো পরিবর্তন হয়ে থাকে তবেই কমিট করবে
+          # পুশ করার আগে রিমোট সার্ভার থেকে নতুন আপডেট পুল (pull) করে নেওয়া হচ্ছে
+          git config --global pull.rebase true
+          git pull origin main
+          
+          git add README.md
           git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update valid image cache busters & snake"
           git push
 
