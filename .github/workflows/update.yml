@@ -42,10 +42,11 @@ jobs:
             dist/github-contribution-grid-snake-dark.svg?color_snake=#bb9af7&color_dots=#1a1b26,#273a5e,#395587,#5a7bb0,#7aa2f7
       
       - name: Push to Output Branch
-        uses: crazy-max/ghaction-github-pages@v3.1.0
+        uses: crazy-max/ghaction-github-pages@v4 # ভার্সন আপডেট করা হয়েছে
         with:
           target_branch: output
           build_dir: dist
+          keep_history: false # এরর ফিক্স করার জন্য এটি যোগ করা হয়েছে
           author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
         env:
