@@ -1,6 +1,6 @@
 <h1>
   <img align="right" src="./assets/cat1.gif" width="160">
-  Hi, I'm Anis!&nbsp;<img src="./assets/hi.gif" width="35" style="vertical-align: middle;">
+  Hi, I'm Anis!&nbsp;<img src="./assets/hi.gif" width="38" style="vertical-align: middle;">
 </h1>
 
 <h3><img src="./assets/me.gif" width="30" style="vertical-align: middle;"> About Me</h3>
