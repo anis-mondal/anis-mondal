@@ -1,16 +1,59 @@
-name: Update README Cache Buster
+name: Merged Profile Actions
 
 on:
   schedule:
-    # প্রতি ৬ ঘণ্টা পর পর রান করবে
-    - cron: '0 */4 * * *'
+    # প্রতি ৩ ঘণ্টা পর পর রান করবে (0 */3 * * *)
+    - cron: '0 */3 * * *'
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  update-readme:
+  # ১. Vercel Server Awake রাখার কাজ
+  ping-server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Vercel API
+        run: |
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "https://my-github-stats-brown.vercel.app/api?username=anis-mondal")
+          if [ "$HTTP_STATUS" -eq 200 ]; then
+            echo "Success! Vercel server is awake. (Status: $HTTP_STATUS)"
+          else
+            echo "Warning: Server might be down. (Status: $HTTP_STATUS)"
+          fi
+
+  # ২. Snake Generate করার কাজ
+  generate-snake:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      
+      - name: Generate Snake
+        uses: Platane/snk@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/github-contribution-grid-snake.svg?color_snake=#bb9af7&color_dots=#ebedf0,#c2d6f9,#9abff4,#7aa2f7,#3d59a1
+            dist/github-contribution-grid-snake-dark.svg?color_snake=#bb9af7&color_dots=#1a1b26,#273a5e,#395587,#5a7bb0,#7aa2f7
+      
+      - name: Push to Output Branch
+        uses: crazy-max/ghaction-github-pages@v3.1.0
+        with:
+          target_branch: output
+          build_dir: dist
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # ৩. README আপডেট এবং সার্ভারে টোকা মারা (Cache Warm-up)
+  update-readme-and-warmup:
+    needs: [generate-snake, ping-server] # আগের দুটি কাজ শেষ হলে তবেই এটি রান করবে
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -20,43 +63,36 @@ jobs:
         run: |
           RAND_NUM=$RANDOM
           
-          # ১. Top Langs Card চেক
           if [ $(curl -s -o /dev/null -w "%{http_code}" "https://my-github-stats-brown.vercel.app/api/top-langs/?username=anis-mondal") -eq 200 ]; then
             sed -i -E "/api\/top-langs/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
             echo "Top Langs updated."
           fi
 
-          # ২. General Stats Card চেক
           if [ $(curl -s -o /dev/null -w "%{http_code}" "https://my-github-stats-brown.vercel.app/api?username=anis-mondal&show_icons=true") -eq 200 ]; then
             sed -i -E "/api\?username=anis-mondal&show_icons/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
             echo "General Stats updated."
           fi
 
-          # ৩. Streak Stats Card চেক
           if [ $(curl -s -o /dev/null -w "%{http_code}" "https://streak-stats.demolab.com/?user=anis-mondal") -eq 200 ]; then
             sed -i -E "/streak-stats\.demolab\.com/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
             echo "Streak Stats updated."
           fi
 
-          # ৪. Profile Details Card চেক
           if [ $(curl -s -o /dev/null -w "%{http_code}" "https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=anis-mondal") -eq 200 ]; then
             sed -i -E "/github-profile-summary-cards/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
             echo "Profile Details updated."
           fi
 
-          # ৫. Contribution Snake চেক (GitHub Raw Server)
           if [ $(curl -s -o /dev/null -w "%{http_code}" "https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg") -eq 200 ]; then
             sed -i -E "/github-contribution-grid-snake/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
             echo "Snake updated."
           fi
 
-          # ৬. Typing SVG চেক
           if [ $(curl -s -o /dev/null -w "%{http_code}" "https://readme-typing-svg.demolab.com?font=system-ui") -eq 200 ]; then
             sed -i -E "/readme-typing-svg/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
             echo "Typing SVG updated."
           fi
 
-          # ৭. Capsule Render (Footer Wave) চেক
           if [ $(curl -s -o /dev/null -w "%{http_code}" "https://capsule-render.vercel.app/api?type=waving") -eq 200 ]; then
             sed -i -E "/capsule-render/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
             echo "Capsule Render updated."
@@ -69,5 +105,13 @@ jobs:
           git add README.md
           
           # যদি কোনো পরিবর্তন হয়ে থাকে তবেই কমিট করবে
-          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update valid image cache busters"
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update valid image cache busters & snake"
           git push
+
+      - name: Knock Virtual Server (Warm-up Cache)
+        run: |
+          echo "Warming up GitHub's cache for the profile repository..."
+          # গিটহাবকে বাধ্য করা হচ্ছে আপনার প্রোফাইলের ডেটা রিলোড করতে
+          curl -s -o /dev/null "https://github.com/${{ github.repository_owner }}"
+          curl -s -o /dev/null "https://github.com/${{ github.repository }}"
+          echo "Knock Successful! Cache is warmed up."
