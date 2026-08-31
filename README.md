@@ -18,8 +18,7 @@ I am exploring the world of programming, trying to build small projects, and enj
 <h3><img src="./assets/fire.gif" width="27" style="vertical-align: middle;"> GitHub Activity & Stats</h3>
 
 <p align="left">
-  <!-- এখানে B- এর রিং কালার হলুদ (f7da5c) করা হয়েছে -->
-  <img src="https://my-github-stats-brown.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&bg_color=00000000&ring_color=f7da5c&v=12672" alt="GitHub Stats" />
+  <img src="https://my-github-stats-brown.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&bg_color=00000000&ring_color=f7da5c&title_color=38bdae&text_color=7aa2f7&v=29208" alt="GitHub Stats" />
 </p>
 
 <p align="left">
