@@ -2,7 +2,6 @@ name: Automated Profile Updater
 
 on:
   schedule:
-    # প্রতি ৩ ঘণ্টা পর পর রান করবে (0 */3 * * *)
     - cron: '0 */3 * * *'
   push:
     branches:
@@ -13,7 +12,7 @@ permissions:
   contents: write
 
 jobs:
-  # ১. Vercel Server Awake রাখার কাজ
+  # ১. Vercel Server Awake
   ping-server:
     runs-on: ubuntu-latest
     steps:
@@ -26,7 +25,7 @@ jobs:
             echo "Warning: Server might be down. (Status: $HTTP_STATUS)"
           fi
 
-  # ২. Snake Generate করার কাজ
+  # ২. Snake Generate
   generate-snake:
     runs-on: ubuntu-latest
     steps:
@@ -42,19 +41,19 @@ jobs:
             dist/github-contribution-grid-snake-dark.svg?color_snake=#bb9af7&color_dots=#1a1b26,#273a5e,#395587,#5a7bb0,#7aa2f7
       
       - name: Push to Output Branch
-        uses: crazy-max/ghaction-github-pages@v4 # ভার্সন আপডেট করা হয়েছে
+        uses: crazy-max/ghaction-github-pages@v4 # version update
         with:
           target_branch: output
           build_dir: dist
-          keep_history: false # এরর ফিক্স করার জন্য এটি যোগ করা হয়েছে
+          keep_history: false 
           author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # ৩. README আপডেট এবং সার্ভারে টোকা মারা (Cache Warm-up)
+  # ৩. README update and check server (Cache Warm-up)
   update-readme-and-warmup:
-    needs: [generate-snake, ping-server] # আগের দুটি কাজ শেষ হলে তবেই এটি রান করবে
+    needs: [generate-snake, ping-server] 
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -105,14 +104,14 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
           
-          # যদি কোনো পরিবর্তন হয়ে থাকে তবেই কমিট করবে
+          # it commit is any changes happened
           git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update valid image cache busters & snake"
           git push
 
       - name: Knock Virtual Server (Warm-up Cache)
         run: |
           echo "Warming up GitHub's cache for the profile repository..."
-          # গিটহাবকে বাধ্য করা হচ্ছে আপনার প্রোফাইলের ডেটা রিলোড করতে
+          # profile data load
           curl -s -o /dev/null "https://github.com/${{ github.repository_owner }}"
           curl -s -o /dev/null "https://github.com/${{ github.repository }}"
           echo "Knock Successful! Cache is warmed up."
