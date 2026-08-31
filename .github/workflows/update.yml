@@ -93,7 +93,7 @@ jobs:
           git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update valid image cache busters & snake [skip ci]"
           git push
 
-  # জব ৪: গিটহাবের লাইভ সার্ভারে ডেটা সিঙ্ক হওয়ার জন্য অপেক্ষা করবে
+  # জব ৪: গিটহাবের লাইভ সার্ভারে ডেটা সিঙ্ক হওয়ার জন্য ৫ সেকেন্ড পর পর অপেক্ষা করবে
   wait-for-github-sync:
     needs: update-and-push-readme
     runs-on: ubuntu-latest
@@ -105,16 +105,23 @@ jobs:
       - name: Dynamic Polling for Sync
         run: |
           LOCAL_HASH=$(md5sum README.md | awk '{print $1}')
-          for i in {1..30}; do
+          
+          # ১৫ বার চেক করবে, প্রতিবার ৫ সেকেন্ড অপেক্ষা করে (সর্বোচ্চ ৭৫ সেকেন্ড)
+          for i in {1..15}; do
             REMOTE_HASH=$(curl -s -H "Cache-Control: no-cache" "https://raw.githubusercontent.com/${{ github.repository_owner }}/${{ github.repository }}/main/README.md" | md5sum | awk '{print $1}')
+            
             if [ "$LOCAL_HASH" == "$REMOTE_HASH" ]; then
-              echo "✅ Success! GitHub server is synced."
+              echo "✅ Success! GitHub server is synced at attempt $i."
               exit 0
             fi
-            sleep 2
+            
+            echo "⏳ Not synced yet. Waiting 5 seconds... (Attempt $i/15)"
+            sleep 5
           done
+          
+          echo "⚠️ Warning: Sync check timeout reached, but proceeding anyway."
 
-  # জব ৫: ডেটা জেনারেট এবং ভেরিফাই করা (২টি জবের কাজ একাই করবে)
+  # জব ৫: ডেটা জেনারেট এবং ভেরিফাই করা 
   generate-and-verify-apis:
     needs: wait-for-github-sync
     runs-on: ubuntu-latest
