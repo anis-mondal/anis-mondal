@@ -18,11 +18,13 @@ I am exploring the world of programming, trying to build small projects, and enj
 <h3><img src="./assets/fire.gif" width="27" style="vertical-align: middle;"> GitHub Activity & Stats</h3>
 
 <p align="left">
-  <img src="https://my-github-stats-brown.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&bg_color=00000000&v=30344" alt="GitHub Stats" />
+  <!-- এখানে B- এর রিং কালার হলুদ (f7da5c) করা হয়েছে -->
+  <img src="https://my-github-stats-brown.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&bg_color=00000000&ring_color=f7da5c&v=30344" alt="GitHub Stats" />
 </p>
 
 <p align="left">
-  <img src="https://streak-stats.demolab.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent&sideNums=bb9af7&v=30344" alt="GitHub Streak" />
+  <!-- এখানে ফায়ার এবং রিংয়ের জন্য সফট পিঙ্ক (f5789f) ব্যবহার করা হয়েছে -->
+  <img src="https://streak-stats.demolab.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent&sideNums=bb9af7&ring=f5789f&fire=fb5995&currStreakLabel=7aa2f7&v=30344" alt="GitHub Streak" />
 </p>
 
 <p align="left">
