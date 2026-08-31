@@ -20,12 +20,12 @@ jobs:
         run: |
           HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "https://my-github-stats-brown.vercel.app/api?username=anis-mondal")
           if [ "$HTTP_STATUS" -eq 200 ]; then
-            echo "Success! Vercel server is awake. (Status: $HTTP_STATUS)"
+            echo "Success! Vercel server is awake."
           else
-            echo "Warning: Server might be down. (Status: $HTTP_STATUS)"
+            echo "Warning: Server might be down."
           fi
 
-  # জব ২: শুধুমাত্র Snake জেনারেট করে আউটপুট ব্রাঞ্চে পুশ করবে
+  # জব ২: Snake জেনারেট করে পুশ করবে (১নং জবের সাথে চলবে)
   generate-github-snake:
     runs-on: ubuntu-latest
     steps:
@@ -51,7 +51,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # জব ৩: শুধুমাত্র README ফাইল আপডেট করবে এবং পুশ করবে
+  # জব ৩: README ফাইল আপডেট করে পুশ করবে
   update-and-push-readme:
     needs: [check-vercel-status, generate-github-snake]
     runs-on: ubuntu-latest
@@ -93,8 +93,8 @@ jobs:
           git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update valid image cache busters & snake [skip ci]"
           git push
 
-  # জব ৪: গিটহাবের CDN সিঙ্ক হওয়ার জন্য অপেক্ষা করবে
-  wait-for-cdn-sync:
+  # জব ৪: গিটহাবের লাইভ সার্ভারে ডেটা সিঙ্ক হওয়ার জন্য অপেক্ষা করবে
+  wait-for-github-sync:
     needs: update-and-push-readme
     runs-on: ubuntu-latest
     steps:
@@ -102,7 +102,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: main 
-      - name: Dynamic Polling for GitHub CDN Sync
+      - name: Dynamic Polling for Sync
         run: |
           LOCAL_HASH=$(md5sum README.md | awk '{print $1}')
           for i in {1..30}; do
@@ -114,37 +114,25 @@ jobs:
             sleep 2
           done
 
-  # জব ৫: গিটহাবের Camo ক্যাশ সার্ভার ক্লিয়ার করার রিকোয়েস্ট পাঠাবে
-  prepare-github-camo:
-    needs: update-and-push-readme
-    runs-on: ubuntu-latest
-    steps:
-      - name: Clear Path for New Cache
-        run: |
-          echo "Sending initial no-cache headers to clear old cache paths..."
-          curl -H "Cache-Control: no-cache" -H "Pragma: no-cache" -s -o /dev/null "https://github.com/${{ github.repository_owner }}"
-          curl -H "Cache-Control: no-cache" -H "Pragma: no-cache" -s -o /dev/null "https://github.com/${{ github.repository }}"
-
-  # জব ৬: ডেটা লোড হওয়ার জন্য প্রস্তুত কি না তা চেক করবে (API Readiness)
-  verify-api-readiness:
-    needs: [wait-for-cdn-sync, prepare-github-camo]
+  # জব ৫: ডেটা জেনারেট এবং ভেরিফাই করা (২টি জবের কাজ একাই করবে)
+  generate-and-verify-apis:
+    needs: wait-for-github-sync
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           ref: main
-      - name: Verify API Data Availability
+      - name: Hit and Verify APIs
         run: |
-          echo "Checking if the external APIs have generated the new data..."
+          echo "Hitting external APIs to generate data and verifying status..."
           grep -oE 'https?://[^ )">]+' README.md | while read -r URL; do
             if [[ "$URL" == *"vercel.app"* ]] || [[ "$URL" == *"demolab.com"* ]] || [[ "$URL" == *"githubusercontent"* ]]; then
-              READY=false
+              # লুপ চালিয়ে এপিআই হিট করবে। রেসপন্স 200 মানে ডেটা জেনারেট হয়ে গেছে।
               for i in {1..10}; do
                 STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
                 if [ "$STATUS" -eq 200 ]; then
-                  echo "✅ Data ready for: $URL"
-                  READY=true
+                  echo "✅ Data successfully generated and cached by API: $URL"
                   break
                 fi
                 sleep 2
@@ -152,32 +140,14 @@ jobs:
             fi
           done
 
-  # জব ৭: প্রস্তুত হওয়া ডেটাগুলো ডাউনলোড করে ক্যাশ তৈরি করবে
-  preload-images-to-cache:
-    needs: verify-api-readiness
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          ref: main
-      - name: Pull Data from APIs
-        run: |
-          echo "🚀 Pulling data to build GitHub Camo cache..."
-          grep -oE 'https?://[^ )">]+' README.md | while read -r URL; do
-            if [[ "$URL" == *"vercel.app"* ]] || [[ "$URL" == *"demolab.com"* ]] || [[ "$URL" == *"githubusercontent"* ]]; then
-              curl -s -o /dev/null "$URL"
-            fi
-          done
-
-  # জব ৮: একদম শেষে প্রোফাইল পেজ রিফ্রেশ করে প্রসেস শেষ করবে
+  # জব ৬: প্রোফাইল রিফ্রেশ করে গিটহাবকে নতুন ছবি নিতে বাধ্য করবে
   final-profile-refresh:
-    needs: preload-images-to-cache
+    needs: generate-and-verify-apis
     runs-on: ubuntu-latest
     steps:
       - name: Force Refresh Profile Page
         run: |
-          echo "🔥 Final profile refresh..."
+          echo "🔥 Forcing GitHub to load new images..."
           curl -H "Cache-Control: no-cache" -H "Pragma: no-cache" -s -o /dev/null "https://github.com/${{ github.repository_owner }}"
           curl -H "Cache-Control: no-cache" -H "Pragma: no-cache" -s -o /dev/null "https://github.com/${{ github.repository }}"
-          echo "🎉 Done! Everything is 100% perfectly updated and cached."
+          echo "🎉 Done! Everything is perfectly updated."
