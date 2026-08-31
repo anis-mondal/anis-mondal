@@ -12,21 +12,21 @@ permissions:
   contents: write
 
 jobs:
-  # ১. Vercel Server চেক করা
-  ping-server:
+  # জব ১: শুধুমাত্র Vercel সার্ভার চেক করবে
+  check-vercel-status:
     runs-on: ubuntu-latest
     steps:
       - name: Ping Vercel API
         run: |
           HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "https://my-github-stats-brown.vercel.app/api?username=anis-mondal")
           if [ "$HTTP_STATUS" -eq 200 ]; then
-            echo "Success! Vercel server is awake."
+            echo "Success! Vercel server is awake. (Status: $HTTP_STATUS)"
           else
-            echo "Warning: Server might be down."
+            echo "Warning: Server might be down. (Status: $HTTP_STATUS)"
           fi
 
-  # ২. Snake Generate করা (প্যারালাল)
-  generate-snake:
+  # জব ২: শুধুমাত্র Snake জেনারেট করে আউটপুট ব্রাঞ্চে পুশ করবে
+  generate-github-snake:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -51,15 +51,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # ৩. README আপডেট ও পুশ করা
-  update-readme:
-    needs: [ping-server, generate-snake]
+  # জব ৩: শুধুমাত্র README ফাইল আপডেট করবে এবং পুশ করবে
+  update-and-push-readme:
+    needs: [check-vercel-status, generate-github-snake]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Update Version Numbers
+      - name: Update Version Numbers Based on API Status
         run: |
           RAND_NUM=$RANDOM
           
@@ -85,7 +85,7 @@ jobs:
             sed -i -E "/capsule-render/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
           fi
 
-      - name: Commit and Push
+      - name: Commit and Push Changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -93,38 +93,58 @@ jobs:
           git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update valid image cache busters & snake [skip ci]"
           git push
 
-  # ৪. Thorough Data Verification & Cache Build (আপনার সেই লজিক)
-  verify-and-build-cache:
-    needs: update-readme
+  # জব ৪: গিটহাবের CDN সিঙ্ক হওয়ার জন্য অপেক্ষা করবে
+  wait-for-cdn-sync:
+    needs: update-and-push-readme
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Latest Code
+      - name: Checkout Latest Pushed Code
         uses: actions/checkout@v4
         with:
           ref: main 
-
-      - name: Step 4A - Wait for GitHub Content Sync
+      - name: Dynamic Polling for GitHub CDN Sync
         run: |
-          echo "Checking if GitHub's raw server has the new links..."
           LOCAL_HASH=$(md5sum README.md | awk '{print $1}')
           for i in {1..30}; do
             REMOTE_HASH=$(curl -s -H "Cache-Control: no-cache" "https://raw.githubusercontent.com/${{ github.repository_owner }}/${{ github.repository }}/main/README.md" | md5sum | awk '{print $1}')
             if [ "$LOCAL_HASH" == "$REMOTE_HASH" ]; then
-              echo "✅ GitHub server is synced!"
-              break
+              echo "✅ Success! GitHub server is synced."
+              exit 0
             fi
             sleep 2
           done
 
-      - name: Step 4B - Pre-flight Data Readiness Check
+  # জব ৫: গিটহাবের Camo ক্যাশ সার্ভার ক্লিয়ার করার রিকোয়েস্ট পাঠাবে
+  prepare-github-camo:
+    needs: update-and-push-readme
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clear Path for New Cache
         run: |
-          echo "Verifying if external APIs are ready to serve the new data..."
+          echo "Sending initial no-cache headers to clear old cache paths..."
+          curl -H "Cache-Control: no-cache" -H "Pragma: no-cache" -s -o /dev/null "https://github.com/${{ github.repository_owner }}"
+          curl -H "Cache-Control: no-cache" -H "Pragma: no-cache" -s -o /dev/null "https://github.com/${{ github.repository }}"
+
+  # জব ৬: ডেটা লোড হওয়ার জন্য প্রস্তুত কি না তা চেক করবে (API Readiness)
+  verify-api-readiness:
+    needs: [wait-for-cdn-sync, prepare-github-camo]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Verify API Data Availability
+        run: |
+          echo "Checking if the external APIs have generated the new data..."
           grep -oE 'https?://[^ )">]+' README.md | while read -r URL; do
             if [[ "$URL" == *"vercel.app"* ]] || [[ "$URL" == *"demolab.com"* ]] || [[ "$URL" == *"githubusercontent"* ]]; then
+              READY=false
               for i in {1..10}; do
                 STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
                 if [ "$STATUS" -eq 200 ]; then
-                  echo "✅ Data ready: $URL"
+                  echo "✅ Data ready for: $URL"
+                  READY=true
                   break
                 fi
                 sleep 2
@@ -132,9 +152,32 @@ jobs:
             fi
           done
 
-      - name: Step 4C - Final GitHub Camo Refresh
+  # জব ৭: প্রস্তুত হওয়া ডেটাগুলো ডাউনলোড করে ক্যাশ তৈরি করবে
+  preload-images-to-cache:
+    needs: verify-api-readiness
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Pull Data from APIs
         run: |
-          echo "All data is verified. Forcing GitHub Camo to load new images..."
+          echo "🚀 Pulling data to build GitHub Camo cache..."
+          grep -oE 'https?://[^ )">]+' README.md | while read -r URL; do
+            if [[ "$URL" == *"vercel.app"* ]] || [[ "$URL" == *"demolab.com"* ]] || [[ "$URL" == *"githubusercontent"* ]]; then
+              curl -s -o /dev/null "$URL"
+            fi
+          done
+
+  # জব ৮: একদম শেষে প্রোফাইল পেজ রিফ্রেশ করে প্রসেস শেষ করবে
+  final-profile-refresh:
+    needs: preload-images-to-cache
+    runs-on: ubuntu-latest
+    steps:
+      - name: Force Refresh Profile Page
+        run: |
+          echo "🔥 Final profile refresh..."
           curl -H "Cache-Control: no-cache" -H "Pragma: no-cache" -s -o /dev/null "https://github.com/${{ github.repository_owner }}"
           curl -H "Cache-Control: no-cache" -H "Pragma: no-cache" -s -o /dev/null "https://github.com/${{ github.repository }}"
-          echo "🎉 Process perfectly completed!"
+          echo "🎉 Done! Everything is 100% perfectly updated and cached."
