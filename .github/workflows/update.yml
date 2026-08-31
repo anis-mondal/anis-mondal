@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 jobs:
-  # ১. Vercel Server Awake
+  # ১. প্রথম জব: Vercel Server চেক করা
   ping-server:
     runs-on: ubuntu-latest
     steps:
@@ -25,8 +25,9 @@ jobs:
             echo "Warning: Server might be down. (Status: $HTTP_STATUS)"
           fi
 
-  # ২. Snake Generate
+  # ২. দ্বিতীয় জব: Snake Generate করা (ping-server শেষ হলে চলবে)
   generate-snake:
+    needs: ping-server
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -41,7 +42,7 @@ jobs:
             dist/github-contribution-grid-snake-dark.svg?color_snake=#bb9af7&color_dots=#1a1b26,#273a5e,#395587,#5a7bb0,#7aa2f7
       
       - name: Push to Output Branch
-        uses: crazy-max/ghaction-github-pages@v4 # version update
+        uses: crazy-max/ghaction-github-pages@v4
         with:
           target_branch: output
           build_dir: dist
@@ -51,9 +52,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # ৩. README update and check server (Cache Warm-up)
-  update-readme-and-warmup:
-    needs: [generate-snake, ping-server] 
+  # ৩. তৃতীয় জব: README আপডেট করা এবং পুশ করা (generate-snake শেষ হলে চলবে)
+  update-readme:
+    needs: generate-snake 
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -108,10 +109,28 @@ jobs:
           git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update valid image cache busters & snake"
           git push
 
-      - name: Knock Virtual Server (Warm-up Cache)
+  # ৪. চতুর্থ ও শেষ জব: Cache Warm-up (update-readme শেষ হলে চলবে)
+  warmup-cache:
+    needs: update-readme
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository (To get the updated README)
+        uses: actions/checkout@v3
+
+      - name: Aggressive Cache Warm-up (Load All APIs & Profile)
         run: |
-          echo "Warming up GitHub's cache for the profile repository..."
-          # profile data load
+          echo "Warming up GitHub's cache and external APIs..."
+          
+          # ১. গিটহাব প্রোফাইল এবং রিপোজিটরি পেজ লোড করা
           curl -s -o /dev/null "https://github.com/${{ github.repository_owner }}"
           curl -s -o /dev/null "https://github.com/${{ github.repository }}"
-          echo "Knock Successful! Cache is warmed up."
+          
+          # ২. আপডেট হওয়া README.md ফাইল থেকে নতুন লিঙ্কগুলো বের করে হিট করা
+          grep -oE 'https?://[^ )">]+' README.md | while read -r URL; do
+            if [[ "$URL" == *"vercel.app"* ]] || [[ "$URL" == *"demolab.com"* ]] || [[ "$URL" == *"githubusercontent"* ]]; then
+              echo "Pinging API to pre-render: $URL"
+              curl -s -o /dev/null "$URL"
+            fi
+          done
+          
+          echo "Knock Successful! All images and profile cache are fully warmed up."
