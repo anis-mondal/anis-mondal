@@ -1,6 +1,6 @@
 <h2>Hi, I'm Anis&nbsp;Mondal!&nbsp;<img src="./assets/hi.gif" width="27" style="vertical-align: middle;"></h2>
 
-<img align="right" src="./assets/cat1.gif" width="160">
+<img align="right" src="./assets/cat1.gif" width="147">
 <h3><img src="./assets/me.gif" width="30" style="vertical-align: middle;"> About Me</h3>
 
 I'm currently a student and I've recently started learning coding as a hobby.
