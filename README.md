@@ -1,5 +1,5 @@
 <h1>
-  Hi, I'm Anis Mondal!&nbsp;<img src="./assets/hi.gif" width="38" style="vertical-align: middle;">
+  Hi, I'm Anis Mondal!&nbsp;<img src="./assets/hi.gif" width="36" style="vertical-align: middle;">
 </h1>
 
 <img align="right" src="./assets/cat1.gif" width="160">
