@@ -1,7 +1,7 @@
 <h1>
-  Hi, I'm<br>
-  Anis&nbsp;Mondal!&nbsp;<img src="./assets/hi.gif" width="38" style="vertical-align: middle;">
+  Hi, I'm Anis Mondal!&nbsp;<img src="./assets/hi.gif" width="38" style="vertical-align: middle;">
 </h1>
+
 
 <h3><img src="./assets/me.gif" width="30" style="vertical-align: middle;"> About Me</h3>
 
