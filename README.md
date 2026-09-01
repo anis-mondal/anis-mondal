@@ -22,7 +22,6 @@ I am exploring the world of programming, trying to build small projects, and enj
 </p>
 
 <p align="left">
-  <!-- এখানে ফায়ার এবং রিংয়ের জন্য সফট পিঙ্ক (f5789f) ব্যবহার করা হয়েছে -->
   <img src="https://streak-stats.demolab.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent&sideNums=bb9af7&ring=f5789f&fire=fb5995&currStreakLabel=7aa2f7&v=13255" alt="GitHub Streak" />
 </p>
 
