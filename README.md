@@ -2,15 +2,12 @@
   Hi, I'm Anis Mondal!&nbsp;<img src="./assets/hi.gif" width="38" style="vertical-align: middle;">
 </h1>
 
-
-<h3><img src="./assets/me.gif" width="30" style="vertical-align: middle;"> About Me</h3>
-
 <img align="right" src="./assets/cat1.gif" width="160">
+<h3><img src="./assets/me.gif" width="30" style="vertical-align: middle;"> About Me</h3>
 
 I'm currently a student and I've recently started learning coding as a hobby.
 
 I am exploring the world of programming, trying to build small projects, and enjoying the process of learning how things work behind the scenes. Every day is a new opportunity to write better code and learn something new!
-
 
 <h3><img src="./assets/code.gif" width="32" style="vertical-align: middle;"> Tech Stack & Languages</h3>
 
