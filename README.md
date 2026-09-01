@@ -1,4 +1,4 @@
-<h1>Hi, I'm Anis&nbsp;Mondal!&nbsp;<img src="./assets/hi.gif" width="36" style="vertical-align: middle;"></h1>
+<h2>Hi, I'm Anis&nbsp;Mondal!&nbsp;<img src="./assets/hi.gif" width="36" style="vertical-align: middle;"></h2>
 
 <img align="right" src="./assets/cat1.gif" width="160">
 <h3><img src="./assets/me.gif" width="30" style="vertical-align: middle;"> About Me</h3>
