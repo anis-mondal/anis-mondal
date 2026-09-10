@@ -10,13 +10,13 @@ I am exploring the world of programming, trying to build small projects, and enj
 <h3><img src="./assets/code.gif" width="33" style="vertical-align: middle;"> Tech Stack & Languages</h3>
 
 <p align="left">
-  <img src="https://my-github-stats-brown.vercel.app/api/top-langs/?username=anis-mondal&theme=tokyonight&hide_border=true&layout=compact&bg_color=00000000&v=16236" alt="Most Used Languages" />
+  <img src="https://my-github-stats-brown.vercel.app/api/top-langs/?username=anis-mondal&theme=tokyonight&hide_border=true&layout=compact&bg_color=00000000&v=12522" alt="Most Used Languages" />
 </p>
 
 <h3><img src="./assets/fire.gif" width="27" style="vertical-align: middle;"> GitHub Activity & Stats</h3>
 
 <p align="left">
-  <img src="https://my-github-stats-brown.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&bg_color=00000000&ring_color=f7da5c&title_color=38bdae&text_color=7aa2f7&v=16236" alt="GitHub Stats" />
+  <img src="https://my-github-stats-brown.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&bg_color=00000000&ring_color=f7da5c&title_color=38bdae&text_color=7aa2f7&v=12522" alt="GitHub Stats" />
 </p>
 
 <p align="left">
@@ -24,16 +24,16 @@ I am exploring the world of programming, trying to build small projects, and enj
 </p>
 
 <p align="left">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=anis-mondal&theme=tokyonight&bg_color=00000000&v=16236" alt="Profile Details" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=anis-mondal&theme=tokyonight&bg_color=00000000&v=12522" alt="Profile Details" />
 </p>
 
 <h3><img src="./assets/snake.gif" width="35" style="vertical-align: middle;"> Contribution Snake</h3>
 
 <p align="left">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake-dark.svg?&v=16236">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?&v=16236">
-    <img alt="Contribution Snake" src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?&v=16236">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake-dark.svg?&v=12522">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?&v=12522">
+    <img alt="Contribution Snake" src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?&v=12522">
   </picture>
 </p>
 
@@ -46,5 +46,5 @@ I am exploring the world of programming, trying to build small projects, and enj
     </picture>
   </a>
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:9d7cd8,20:bb9af7,45:7aa2f7,75:38b6ff,100:7dcfff&height=80&section=footer&width=100&v=16236" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:9d7cd8,20:bb9af7,45:7aa2f7,75:38b6ff,100:7dcfff&height=80&section=footer&width=100&v=12522" />
 </div>
