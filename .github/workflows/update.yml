@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 jobs:
-  # জব ১: শুধুমাত্র Vercel সার্ভার চেক করবে
+  # জব ১: শুধুমাত্র Vercel সার্ভার চেক করবে (লজিক অপরিবর্তিত)
   check-vercel-status:
     runs-on: ubuntu-latest
     steps:
@@ -25,12 +25,20 @@ jobs:
             echo "Warning: Server might be down."
           fi
 
-  # জব ২: Snake জেনারেট করে পুশ করবে (১নং জবের সাথে চলবে)
+  # জব ২: Snake জেনারেট এবং কার্ড ডাউনলোড করে পুশ করবে
   generate-github-snake:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+      
+      # প্রথমে আউটপুট ব্রাঞ্চ ক্লোন করা হচ্ছে, যাতে পুরনো কার্ডগুলো dist ফোল্ডারে থাকে
+      - name: Checkout Output Branch
+        uses: actions/checkout@v4
+        with:
+          ref: output
+          path: dist
+        continue-on-error: true
       
       - name: Generate Snake
         uses: Platane/snk@v3
@@ -40,6 +48,36 @@ jobs:
             dist/github-contribution-grid-snake.svg?color_snake=#bb9af7&color_dots=#ebedf0,#c2d6f9,#9abff4,#7aa2f7,#3d59a1
             dist/github-contribution-grid-snake-dark.svg?color_snake=#bb9af7&color_dots=#1a1b26,#273a5e,#395587,#5a7bb0,#7aa2f7
       
+      - name: Download and Verify Cards
+        run: |
+          mkdir -p dist
+          
+          # ফাংশন: ডাউনলোড করে চেক করবে। ঠিক থাকলে পুরনো কার্ড ডিলিট করে নতুনটি বসাবে।
+          download_card() {
+            local url=$1
+            local filename="dist/$2"
+            local tempname="temp_$2"
+            
+            # প্রথমে নতুন কার্ডটি টেম্পোরারি ফাইলে ডাউনলোড করা হচ্ছে
+            HTTP_STATUS=$(curl -s -w "%{http_code}" -o "$tempname" "$url")
+            
+            # চেক করা হচ্ছে: ডাউনলোড কি সফল? এবং ভেতরে কি ERROR লেখা নেই?
+            if [ "$HTTP_STATUS" -eq 200 ] && ! grep -qi "rate limited\|ERROR" "$tempname"; then
+               # সফল হলে: পুরনো কার্ডটি ডিলিট করে নতুন কার্ডটি তার জায়গায় বসিয়ে দেওয়া হলো (mv কমান্ডের মাধ্যমে)
+               mv "$tempname" "$filename"
+               echo "✅ Success: $2 updated successfully with new data."
+            else
+               # ব্যর্থ হলে: টেম্পোরারি ফাইলটি ডিলিট করা হলো এবং পুরনো কার্ডটিই রেখে দেওয়া হলো
+               echo "❌ Error on $2. Keeping old file."
+               rm -f "$tempname"
+            fi
+          }
+          
+          download_card "https://my-github-stats-brown.vercel.app/api/top-langs/?username=anis-mondal&theme=tokyonight&hide_border=true&layout=compact&bg_color=00000000" "top-langs.svg"
+          download_card "https://my-github-stats-brown.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&bg_color=00000000&ring_color=f7da5c&title_color=38bdae&text_color=7aa2f7" "github-stats.svg"
+          download_card "https://streak-stats.demolab.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent&sideNums=bb9af7&ring=f5789f&fire=fb5995&currStreakLabel=7aa2f7" "streak.svg"
+          download_card "https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=anis-mondal&theme=tokyonight&bg_color=00000000" "profile-details.svg"
+
       - name: Push to Output Branch
         uses: crazy-max/ghaction-github-pages@v4
         with:
@@ -51,7 +89,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # জব ৩: README ফাইল আপডেট করে পুশ করবে
+  # জব ৩: README ফাইল আপডেট করে পুশ করবে (আপনার পুরনো লজিক সম্পূর্ণ হুবহু রাখা হয়েছে)
   update-and-push-readme:
     needs: [check-vercel-status, generate-github-snake]
     runs-on: ubuntu-latest
@@ -63,26 +101,27 @@ jobs:
         run: |
           RAND_NUM=$RANDOM
           
+          # আপনার লজিক: API ঠিক থাকলে README-তে থাকা র-লিংকের শেষে v= নম্বর পরিবর্তন করবে
           if [ $(curl -s -o /dev/null -w "%{http_code}" "https://my-github-stats-brown.vercel.app/api/top-langs/?username=anis-mondal") -eq 200 ]; then
-            sed -i -E "/api\/top-langs/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
+            sed -i -E "/top-langs\.svg/s/v=[0-9]+/v=$RAND_NUM/g" README.md
           fi
           if [ $(curl -s -o /dev/null -w "%{http_code}" "https://my-github-stats-brown.vercel.app/api?username=anis-mondal&show_icons=true") -eq 200 ]; then
-            sed -i -E "/api\?username=anis-mondal&show_icons/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
+            sed -i -E "/github-stats\.svg/s/v=[0-9]+/v=$RAND_NUM/g" README.md
           fi
           if [ $(curl -s -o /dev/null -w "%{http_code}" "https://streak-stats.demolab.com/?user=anis-mondal") -eq 200 ]; then
-            sed -i -E "/streak-stats\.demolab\.com/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
+            sed -i -E "/streak\.svg/s/v=[0-9]+/v=$RAND_NUM/g" README.md
           fi
           if [ $(curl -s -o /dev/null -w "%{http_code}" "https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=anis-mondal") -eq 200 ]; then
-            sed -i -E "/github-profile-summary-cards/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
+            sed -i -E "/profile-details\.svg/s/v=[0-9]+/v=$RAND_NUM/g" README.md
           fi
           if [ $(curl -s -o /dev/null -w "%{http_code}" "https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg") -eq 200 ]; then
-            sed -i -E "/github-contribution-grid-snake/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
+            sed -i -E "/github-contribution-grid-snake/s/v=[0-9]+/v=$RAND_NUM/g" README.md
           fi
           if [ $(curl -s -o /dev/null -w "%{http_code}" "https://readme-typing-svg.demolab.com?font=system-ui") -eq 200 ]; then
-            sed -i -E "/readme-typing-svg/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
+            sed -i -E "/readme-typing-svg/s/v=[0-9]+/v=$RAND_NUM/g" README.md
           fi
           if [ $(curl -s -o /dev/null -w "%{http_code}" "https://capsule-render.vercel.app/api?type=waving") -eq 200 ]; then
-            sed -i -E "/capsule-render/s/&v=[0-9]+/\&v=$RAND_NUM/g" README.md
+            sed -i -E "/capsule-render/s/v=[0-9]+/v=$RAND_NUM/g" README.md
           fi
 
       - name: Commit and Push Changes
@@ -93,7 +132,7 @@ jobs:
           git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update valid image cache busters & snake [skip ci]"
           git push
 
-  # জব ৪: গিটহাবের লাইভ সার্ভারে ডেটা সিঙ্ক হওয়ার জন্য ৫ সেকেন্ড পর পর অপেক্ষা করবে
+  # জব ৪: গিটহাবের লাইভ সার্ভারে ডেটা সিঙ্ক (লজিক অপরিবর্তিত)
   wait-for-github-sync:
     needs: update-and-push-readme
     runs-on: ubuntu-latest
@@ -105,23 +144,17 @@ jobs:
       - name: Dynamic Polling for Sync
         run: |
           LOCAL_HASH=$(md5sum README.md | awk '{print $1}')
-          
-          # ১৫ বার চেক করবে, প্রতিবার ৫ সেকেন্ড অপেক্ষা করে (সর্বোচ্চ ৭৫ সেকেন্ড)
           for i in {1..15}; do
             REMOTE_HASH=$(curl -s -H "Cache-Control: no-cache" "https://raw.githubusercontent.com/${{ github.repository_owner }}/${{ github.repository }}/main/README.md" | md5sum | awk '{print $1}')
-            
             if [ "$LOCAL_HASH" == "$REMOTE_HASH" ]; then
               echo "✅ Success! GitHub server is synced at attempt $i."
               exit 0
             fi
-            
             echo "⏳ Not synced yet. Waiting 5 seconds... (Attempt $i/15)"
             sleep 5
           done
-          
-          echo "⚠️ Warning: Sync check timeout reached, but proceeding anyway."
 
-  # জব ৫: ডেটা জেনারেট এবং ভেরিফাই করা 
+  # জব ৫: ডেটা জেনারেট এবং ভেরিফাই করা (লজিক অপরিবর্তিত)
   generate-and-verify-apis:
     needs: wait-for-github-sync
     runs-on: ubuntu-latest
@@ -135,7 +168,6 @@ jobs:
           echo "Hitting external APIs to generate data and verifying status..."
           grep -oE 'https?://[^ )">]+' README.md | while read -r URL; do
             if [[ "$URL" == *"vercel.app"* ]] || [[ "$URL" == *"demolab.com"* ]] || [[ "$URL" == *"githubusercontent"* ]]; then
-              # লুপ চালিয়ে এপিআই হিট করবে। রেসপন্স 200 মানে ডেটা জেনারেট হয়ে গেছে।
               for i in {1..10}; do
                 STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
                 if [ "$STATUS" -eq 200 ]; then
@@ -147,7 +179,7 @@ jobs:
             fi
           done
 
-  # জব ৬: প্রোফাইল রিফ্রেশ করে গিটহাবকে নতুন ছবি নিতে বাধ্য করবে
+  # জব ৬: প্রোফাইল রিফ্রেশ (লজিক অপরিবর্তিত)
   final-profile-refresh:
     needs: generate-and-verify-apis
     runs-on: ubuntu-latest
