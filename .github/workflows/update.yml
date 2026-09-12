@@ -12,7 +12,6 @@ permissions:
   contents: write
 
 jobs:
-  # জব ১: শুধুমাত্র Vercel সার্ভার চেক করবে
   check-vercel-status:
     runs-on: ubuntu-latest
     steps:
@@ -25,15 +24,16 @@ jobs:
             echo "Warning: Server might be down."
           fi
 
-  # জব ২: Snake জেনারেট এবং কার্ড ডাউনলোড করে পুশ করবে
   generate-github-snake:
     runs-on: ubuntu-latest
-    # এখানে জব-৩ এর জন্য সিগন্যাল (outputs) তৈরি করা হচ্ছে
     outputs:
       top_langs_status: ${{ steps.download_step.outputs.top_langs_status }}
       github_stats_status: ${{ steps.download_step.outputs.github_stats_status }}
       streak_status: ${{ steps.download_step.outputs.streak_status }}
       profile_details_status: ${{ steps.download_step.outputs.profile_details_status }}
+      typing_svg_dark_status: ${{ steps.download_step.outputs.typing_svg_dark_status }}
+      typing_svg_light_status: ${{ steps.download_step.outputs.typing_svg_light_status }}
+      capsule_render_status: ${{ steps.download_step.outputs.capsule_render_status }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -53,12 +53,11 @@ jobs:
             dist/github-contribution-grid-snake.svg?color_snake=#bb9af7&color_dots=#ebedf0,#c2d6f9,#9abff4,#7aa2f7,#3d59a1
             dist/github-contribution-grid-snake-dark.svg?color_snake=#bb9af7&color_dots=#1a1b26,#273a5e,#395587,#5a7bb0,#7aa2f7
       
-      - name: Download and Verify Cards
+      - name: Download and Verify Cards and Animations
         id: download_step
         run: |
           mkdir -p dist
           
-          # ফাংশন: ডাউনলোড সফল হলে 'success', ব্যর্থ হলে 'failed' সিগন্যাল পাঠাবে
           download_card() {
             local url=$1
             local filename="dist/$2"
@@ -78,10 +77,16 @@ jobs:
             fi
           }
           
+          # Stats Cards
           download_card "https://my-github-stats-brown.vercel.app/api/top-langs/?username=anis-mondal&theme=tokyonight&hide_border=true&layout=compact&bg_color=00000000" "top-langs.svg" "top_langs_status"
           download_card "https://my-github-stats-brown.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&bg_color=00000000&ring_color=f7da5c&title_color=38bdae&text_color=7aa2f7" "github-stats.svg" "github_stats_status"
           download_card "https://streak-stats.demolab.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent&sideNums=bb9af7&ring=f5789f&fire=fb5995&currStreakLabel=7aa2f7" "streak.svg" "streak_status"
           download_card "https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=anis-mondal&theme=tokyonight&bg_color=00000000" "profile-details.svg" "profile_details_status"
+          
+          # Animations (Typing SVG and Capsule Render)
+          download_card "https://readme-typing-svg.demolab.com?font=system-ui&pause=1000&color=F7F7F7&width=450&height=35&center=true&lines=Thanks+for+visiting+my+profile+%E2%9D%A4%EF%B8%8F" "typing-svg-dark.svg" "typing_svg_dark_status"
+          download_card "https://readme-typing-svg.demolab.com?font=system-ui&pause=1000&color=1F2328&width=450&height=35&center=true&lines=Thanks+for+visiting+my+profile+%E2%9D%A4%EF%B8%8F" "typing-svg-light.svg" "typing_svg_light_status"
+          download_card "https://capsule-render.vercel.app/api?type=waving&color=0:9d7cd8,20:bb9af7,45:7aa2f7,75:38b6ff,100:7dcfff&height=80&section=footer&width=100" "capsule-render.svg" "capsule_render_status"
 
       - name: Push to Output Branch
         uses: crazy-max/ghaction-github-pages@v4
@@ -94,7 +99,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # জব ৩: README ফাইল আপডেট করবে (শুধুমাত্র সফল ডাউনলোড হওয়া কার্ডগুলোর লিংক বদলাবে)
   update-and-push-readme:
     needs: [check-vercel-status, generate-github-snake]
     runs-on: ubuntu-latest
@@ -106,7 +110,7 @@ jobs:
         run: |
           RAND_NUM=$RANDOM
           
-          # জব-২ থেকে পাওয়া সিগন্যাল চেক করে লিংক আপডেট করা হচ্ছে
+          # Stats Cards
           if [ "${{ needs.generate-github-snake.outputs.top_langs_status }}" == "success" ]; then
             sed -i -E "/top-langs\.svg/s/v=[0-9]+/v=$RAND_NUM/g" README.md
           fi
@@ -123,10 +127,21 @@ jobs:
             sed -i -E "/profile-details\.svg/s/v=[0-9]+/v=$RAND_NUM/g" README.md
           fi
           
-          # স্নেক এবং অন্যান্য লাইভ লিংক সবসময় আপডেট হবে
+          # Animations Updates
+          if [ "${{ needs.generate-github-snake.outputs.typing_svg_dark_status }}" == "success" ]; then
+            sed -i -E "/typing-svg-dark\.svg/s/v=[0-9]+/v=$RAND_NUM/g" README.md
+          fi
+
+          if [ "${{ needs.generate-github-snake.outputs.typing_svg_light_status }}" == "success" ]; then
+            sed -i -E "/typing-svg-light\.svg/s/v=[0-9]+/v=$RAND_NUM/g" README.md
+          fi
+          
+          if [ "${{ needs.generate-github-snake.outputs.capsule_render_status }}" == "success" ]; then
+            sed -i -E "/capsule-render\.svg/s/v=[0-9]+/v=$RAND_NUM/g" README.md
+          fi
+
+          # Snake Update (Always updates as Platane/snk manages errors internally)
           sed -i -E "/github-contribution-grid-snake/s/v=[0-9]+/v=$RAND_NUM/g" README.md
-          sed -i -E "/readme-typing-svg/s/v=[0-9]+/v=$RAND_NUM/g" README.md
-          sed -i -E "/capsule-render/s/v=[0-9]+/v=$RAND_NUM/g" README.md
 
       - name: Commit and Push Changes
         run: |
@@ -136,7 +151,6 @@ jobs:
           git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update valid image cache busters [skip ci]"
           git push
 
-  # জব ৪: গিটহাবের লাইভ সার্ভারে ডেটা সিঙ্ক হওয়ার জন্য অপেক্ষা
   wait-for-github-sync:
     needs: update-and-push-readme
     runs-on: ubuntu-latest
@@ -158,7 +172,6 @@ jobs:
             sleep 5
           done
 
-  # জব ৫: ডেটা জেনারেট এবং ভেরিফাই করা
   generate-and-verify-apis:
     needs: wait-for-github-sync
     runs-on: ubuntu-latest
@@ -183,7 +196,6 @@ jobs:
             fi
           done
 
-  # জব ৬: প্রোফাইল রিফ্রেশ
   final-profile-refresh:
     needs: generate-and-verify-apis
     runs-on: ubuntu-latest
