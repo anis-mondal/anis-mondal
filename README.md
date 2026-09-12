@@ -10,41 +10,41 @@ I am exploring the world of programming, trying to build small projects, and enj
 <h3><img src="./assets/code.gif" width="33" style="vertical-align: middle;"> Tech Stack & Languages</h3>
 
 <p align="left">
-  <img src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/top-langs.svg?v=10478" alt="Most Used Languages" />
+  <img src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/top-langs.svg?v=27967" alt="Most Used Languages" />
 </p>
 
 <h3><img src="./assets/fire.gif" width="27" style="vertical-align: middle;"> GitHub Activity & Stats</h3>
 
 <p align="left">
-  <img src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-stats.svg?v=10478" alt="GitHub Stats" />
+  <img src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-stats.svg?v=27967" alt="GitHub Stats" />
 </p>
 
 <p align="left">
-  <img src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/streak.svg?v=10478" alt="GitHub Streak" />
+  <img src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/streak.svg?v=27967" alt="GitHub Streak" />
 </p>
 
 <p align="left">
-  <img src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/profile-details.svg?v=10478" alt="Profile Details" />
+  <img src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/profile-details.svg?v=27967" alt="Profile Details" />
 </p>
 
 <h3><img src="./assets/snake.gif" width="35" style="vertical-align: middle;"> Contribution Snake</h3>
 
 <p align="left">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake-dark.svg?v=10478">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?v=10478">
-    <img alt="Contribution Snake" src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?v=10478">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake-dark.svg?v=27967">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?v=27967">
+    <img alt="Contribution Snake" src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?v=27967">
   </picture>
 </p>
 
 <div align="center">
   <a href="https://git.io/typing-svg">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/typing-svg-dark.svg?v=10478">
-      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/typing-svg-light.svg?v=10478">
-      <img alt="Typing SVG" src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/typing-svg-light.svg?v=10478">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/typing-svg-dark.svg?v=27967">
+      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/typing-svg-light.svg?v=27967">
+      <img alt="Typing SVG" src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/typing-svg-light.svg?v=27967">
     </picture>
   </a>
 <div align="center">
-  <img src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/capsule-render.svg?v=10478" />
+  <img src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/capsule-render.svg?v=27967" />
 </div>
