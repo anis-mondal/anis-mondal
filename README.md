@@ -10,41 +10,41 @@ I am exploring the world of programming, trying to build small projects, and enj
 <h3><img src="./assets/code.gif" width="33" style="vertical-align: middle;"> Tech Stack & Languages</h3>
 
 <p align="left">
-  <img src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/top-langs.svg?v=8433" alt="Most Used Languages" />
+  <img src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/top-langs.svg?v=26986" alt="Most Used Languages" />
 </p>
 
 <h3><img src="./assets/fire.gif" width="27" style="vertical-align: middle;"> GitHub Activity & Stats</h3>
 
 <p align="left">
-  <img src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-stats.svg?v=8433" alt="GitHub Stats" />
+  <img src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-stats.svg?v=26986" alt="GitHub Stats" />
 </p>
 
 <p align="left">
-  <img src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/streak.svg?v=8433" alt="GitHub Streak" />
+  <img src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/streak.svg?v=26986" alt="GitHub Streak" />
 </p>
 
 <p align="left">
-  <img src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/profile-details.svg?v=8433" alt="Profile Details" />
+  <img src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/profile-details.svg?v=26986" alt="Profile Details" />
 </p>
 
 <h3><img src="./assets/snake.gif" width="35" style="vertical-align: middle;"> Contribution Snake</h3>
 
 <p align="left">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake-dark.svg?v=8433">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?v=8433">
-    <img alt="Contribution Snake" src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?v=8433">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake-dark.svg?v=26986">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?v=26986">
+    <img alt="Contribution Snake" src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?v=26986">
   </picture>
 </p>
 
 <div align="center">
   <a href="https://git.io/typing-svg">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com?font=system-ui&pause=1000&color=F7F7F7&width=450&height=35&center=true&lines=Thanks+for+visiting+my+profile+%E2%9D%A4%EF%B8%8F&v=24140">
-      <source media="(prefers-color-scheme: light)" srcset="https://readme-typing-svg.demolab.com?font=system-ui&pause=1000&color=1F2328&width=450&height=35&center=true&lines=Thanks+for+visiting+my+profile+%E2%9D%A4%EF%B8%8F&v=24140">
-      <img alt="Typing SVG" src="https://readme-typing-svg.demolab.com?font=system-ui&pause=1000&color=1F2328&width=450&height=35&center=true&lines=Thanks+for+visiting+my+profile+%E2%9D%A4%EF%B8%8F&v=24140">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/typing-svg-dark.svg?v=29628">
+      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/typing-svg-light.svg?v=29628">
+      <img alt="Typing SVG" src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/typing-svg-light.svg?v=29628">
     </picture>
   </a>
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:9d7cd8,20:bb9af7,45:7aa2f7,75:38b6ff,100:7dcfff&height=80&section=footer&width=100&v=24140" />
+  <img src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/capsule-render.svg?v=26986" />
 </div>
