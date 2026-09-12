@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 jobs:
-  # জব ১: শুধুমাত্র Vercel সার্ভার চেক করবে (লজিক অপরিবর্তিত)
+  # জব ১: শুধুমাত্র Vercel সার্ভার চেক করবে
   check-vercel-status:
     runs-on: ubuntu-latest
     steps:
@@ -28,11 +28,16 @@ jobs:
   # জব ২: Snake জেনারেট এবং কার্ড ডাউনলোড করে পুশ করবে
   generate-github-snake:
     runs-on: ubuntu-latest
+    # এখানে জব-৩ এর জন্য সিগন্যাল (outputs) তৈরি করা হচ্ছে
+    outputs:
+      top_langs_status: ${{ steps.download_step.outputs.top_langs_status }}
+      github_stats_status: ${{ steps.download_step.outputs.github_stats_status }}
+      streak_status: ${{ steps.download_step.outputs.streak_status }}
+      profile_details_status: ${{ steps.download_step.outputs.profile_details_status }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
       
-      # প্রথমে আউটপুট ব্রাঞ্চ ক্লোন করা হচ্ছে, যাতে পুরনো কার্ডগুলো dist ফোল্ডারে থাকে
       - name: Checkout Output Branch
         uses: actions/checkout@v4
         with:
@@ -49,34 +54,34 @@ jobs:
             dist/github-contribution-grid-snake-dark.svg?color_snake=#bb9af7&color_dots=#1a1b26,#273a5e,#395587,#5a7bb0,#7aa2f7
       
       - name: Download and Verify Cards
+        id: download_step
         run: |
           mkdir -p dist
           
-          # ফাংশন: ডাউনলোড করে চেক করবে। ঠিক থাকলে পুরনো কার্ড ডিলিট করে নতুনটি বসাবে।
+          # ফাংশন: ডাউনলোড সফল হলে 'success', ব্যর্থ হলে 'failed' সিগন্যাল পাঠাবে
           download_card() {
             local url=$1
             local filename="dist/$2"
             local tempname="temp_$2"
+            local signal_name=$3
             
-            # প্রথমে নতুন কার্ডটি টেম্পোরারি ফাইলে ডাউনলোড করা হচ্ছে
             HTTP_STATUS=$(curl -s -w "%{http_code}" -o "$tempname" "$url")
             
-            # চেক করা হচ্ছে: ডাউনলোড কি সফল? এবং ভেতরে কি ERROR লেখা নেই?
             if [ "$HTTP_STATUS" -eq 200 ] && ! grep -qi "rate limited\|ERROR" "$tempname"; then
-               # সফল হলে: পুরনো কার্ডটি ডিলিট করে নতুন কার্ডটি তার জায়গায় বসিয়ে দেওয়া হলো (mv কমান্ডের মাধ্যমে)
                mv "$tempname" "$filename"
-               echo "✅ Success: $2 updated successfully with new data."
+               echo "✅ Success: $2 updated."
+               echo "$signal_name=success" >> $GITHUB_OUTPUT
             else
-               # ব্যর্থ হলে: টেম্পোরারি ফাইলটি ডিলিট করা হলো এবং পুরনো কার্ডটিই রেখে দেওয়া হলো
                echo "❌ Error on $2. Keeping old file."
                rm -f "$tempname"
+               echo "$signal_name=failed" >> $GITHUB_OUTPUT
             fi
           }
           
-          download_card "https://my-github-stats-brown.vercel.app/api/top-langs/?username=anis-mondal&theme=tokyonight&hide_border=true&layout=compact&bg_color=00000000" "top-langs.svg"
-          download_card "https://my-github-stats-brown.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&bg_color=00000000&ring_color=f7da5c&title_color=38bdae&text_color=7aa2f7" "github-stats.svg"
-          download_card "https://streak-stats.demolab.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent&sideNums=bb9af7&ring=f5789f&fire=fb5995&currStreakLabel=7aa2f7" "streak.svg"
-          download_card "https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=anis-mondal&theme=tokyonight&bg_color=00000000" "profile-details.svg"
+          download_card "https://my-github-stats-brown.vercel.app/api/top-langs/?username=anis-mondal&theme=tokyonight&hide_border=true&layout=compact&bg_color=00000000" "top-langs.svg" "top_langs_status"
+          download_card "https://my-github-stats-brown.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&bg_color=00000000&ring_color=f7da5c&title_color=38bdae&text_color=7aa2f7" "github-stats.svg" "github_stats_status"
+          download_card "https://streak-stats.demolab.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent&sideNums=bb9af7&ring=f5789f&fire=fb5995&currStreakLabel=7aa2f7" "streak.svg" "streak_status"
+          download_card "https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=anis-mondal&theme=tokyonight&bg_color=00000000" "profile-details.svg" "profile_details_status"
 
       - name: Push to Output Branch
         uses: crazy-max/ghaction-github-pages@v4
@@ -89,7 +94,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # জব ৩: README ফাইল আপডেট করে পুশ করবে (আপনার পুরনো লজিক সম্পূর্ণ হুবহু রাখা হয়েছে)
+  # জব ৩: README ফাইল আপডেট করবে (শুধুমাত্র সফল ডাউনলোড হওয়া কার্ডগুলোর লিংক বদলাবে)
   update-and-push-readme:
     needs: [check-vercel-status, generate-github-snake]
     runs-on: ubuntu-latest
@@ -97,42 +102,41 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Update Version Numbers Based on API Status
+      - name: Update Version Numbers Based on Download Success
         run: |
           RAND_NUM=$RANDOM
           
-          # আপনার লজিক: API ঠিক থাকলে README-তে থাকা র-লিংকের শেষে v= নম্বর পরিবর্তন করবে
-          if [ $(curl -s -o /dev/null -w "%{http_code}" "https://my-github-stats-brown.vercel.app/api/top-langs/?username=anis-mondal") -eq 200 ]; then
+          # জব-২ থেকে পাওয়া সিগন্যাল চেক করে লিংক আপডেট করা হচ্ছে
+          if [ "${{ needs.generate-github-snake.outputs.top_langs_status }}" == "success" ]; then
             sed -i -E "/top-langs\.svg/s/v=[0-9]+/v=$RAND_NUM/g" README.md
           fi
-          if [ $(curl -s -o /dev/null -w "%{http_code}" "https://my-github-stats-brown.vercel.app/api?username=anis-mondal&show_icons=true") -eq 200 ]; then
+          
+          if [ "${{ needs.generate-github-snake.outputs.github_stats_status }}" == "success" ]; then
             sed -i -E "/github-stats\.svg/s/v=[0-9]+/v=$RAND_NUM/g" README.md
           fi
-          if [ $(curl -s -o /dev/null -w "%{http_code}" "https://streak-stats.demolab.com/?user=anis-mondal") -eq 200 ]; then
+          
+          if [ "${{ needs.generate-github-snake.outputs.streak_status }}" == "success" ]; then
             sed -i -E "/streak\.svg/s/v=[0-9]+/v=$RAND_NUM/g" README.md
           fi
-          if [ $(curl -s -o /dev/null -w "%{http_code}" "https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=anis-mondal") -eq 200 ]; then
+          
+          if [ "${{ needs.generate-github-snake.outputs.profile_details_status }}" == "success" ]; then
             sed -i -E "/profile-details\.svg/s/v=[0-9]+/v=$RAND_NUM/g" README.md
           fi
-          if [ $(curl -s -o /dev/null -w "%{http_code}" "https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg") -eq 200 ]; then
-            sed -i -E "/github-contribution-grid-snake/s/v=[0-9]+/v=$RAND_NUM/g" README.md
-          fi
-          if [ $(curl -s -o /dev/null -w "%{http_code}" "https://readme-typing-svg.demolab.com?font=system-ui") -eq 200 ]; then
-            sed -i -E "/readme-typing-svg/s/v=[0-9]+/v=$RAND_NUM/g" README.md
-          fi
-          if [ $(curl -s -o /dev/null -w "%{http_code}" "https://capsule-render.vercel.app/api?type=waving") -eq 200 ]; then
-            sed -i -E "/capsule-render/s/v=[0-9]+/v=$RAND_NUM/g" README.md
-          fi
+          
+          # স্নেক এবং অন্যান্য লাইভ লিংক সবসময় আপডেট হবে
+          sed -i -E "/github-contribution-grid-snake/s/v=[0-9]+/v=$RAND_NUM/g" README.md
+          sed -i -E "/readme-typing-svg/s/v=[0-9]+/v=$RAND_NUM/g" README.md
+          sed -i -E "/capsule-render/s/v=[0-9]+/v=$RAND_NUM/g" README.md
 
       - name: Commit and Push Changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update valid image cache busters & snake [skip ci]"
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update valid image cache busters [skip ci]"
           git push
 
-  # জব ৪: গিটহাবের লাইভ সার্ভারে ডেটা সিঙ্ক (লজিক অপরিবর্তিত)
+  # জব ৪: গিটহাবের লাইভ সার্ভারে ডেটা সিঙ্ক হওয়ার জন্য অপেক্ষা
   wait-for-github-sync:
     needs: update-and-push-readme
     runs-on: ubuntu-latest
@@ -154,7 +158,7 @@ jobs:
             sleep 5
           done
 
-  # জব ৫: ডেটা জেনারেট এবং ভেরিফাই করা (লজিক অপরিবর্তিত)
+  # জব ৫: ডেটা জেনারেট এবং ভেরিফাই করা
   generate-and-verify-apis:
     needs: wait-for-github-sync
     runs-on: ubuntu-latest
@@ -179,7 +183,7 @@ jobs:
             fi
           done
 
-  # জব ৬: প্রোফাইল রিফ্রেশ (লজিক অপরিবর্তিত)
+  # জব ৬: প্রোফাইল রিফ্রেশ
   final-profile-refresh:
     needs: generate-and-verify-apis
     runs-on: ubuntu-latest
