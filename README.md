@@ -31,9 +31,9 @@ I am exploring the world of programming, trying to build small projects, and enj
 
 <p align="left">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake-dark.svg?&v=26986">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?&v=26986">
-    <img alt="Contribution Snake" src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?&v=26986">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake-dark.svg?&v=14838">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?&v=14838">
+    <img alt="Contribution Snake" src="https://raw.githubusercontent.com/anis-mondal/anis-mondal/output/github-contribution-grid-snake.svg?&v=14838">
   </picture>
 </p>
 
@@ -46,5 +46,5 @@ I am exploring the world of programming, trying to build small projects, and enj
     </picture>
   </a>
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:9d7cd8,20:bb9af7,45:7aa2f7,75:38b6ff,100:7dcfff&height=80&section=footer&width=100&v=26986" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:9d7cd8,20:bb9af7,45:7aa2f7,75:38b6ff,100:7dcfff&height=80&section=footer&width=100&v=14838" />
 </div>
