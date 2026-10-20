@@ -1,4 +1,4 @@
-Name: Automated Profile Updater
+name: Automated Profile Updater
 
 on:
   schedule:
