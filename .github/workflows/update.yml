@@ -79,7 +79,8 @@ jobs:
           
           # Stats Cards
           download_card "https://my-github-stats-brown.vercel.app/api/top-langs/?username=anis-mondal&theme=tokyonight&hide_border=true&layout=compact&bg_color=00000000" "top-langs.svg" "top_langs_status"
-          download_card "https://my-github-stats-brown.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&bg_color=00000000&ring_color=f7da5c&title_color=38bdae&text_color=7aa2f7" "github-stats.svg" "github_stats_status"
+          # এখানে ring_color=a78bfa আপডেট করা হয়েছে
+          download_card "https://my-github-stats-brown.vercel.app/api?username=anis-mondal&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&bg_color=00000000&ring_color=a78bfa&title_color=38bdae&text_color=7aa2f7" "github-stats.svg" "github_stats_status"
           download_card "https://streak-stats.demolab.com/?user=anis-mondal&theme=tokyonight&hide_border=true&stroke=38b6ff&background=transparent&sideNums=bb9af7&ring=f5789f&fire=fb5995&currStreakLabel=7aa2f7" "streak.svg" "streak_status"
           download_card "https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=anis-mondal&theme=tokyonight&bg_color=00000000" "profile-details.svg" "profile_details_status"
           
